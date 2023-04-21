@@ -5,7 +5,7 @@ defmodule Mix.Tasks.Benchmark do
   @shortdoc "runs benchmarks"
 
   @formatters [{Benchee.Formatters.Console, extended_statistics: false, comparison: true}]
-  @benchee_opts [formatters: @formatters, warmup: 1, time: 2]
+  @benchee_opts [formatters: @formatters, warmup: 1, time: 2, memory_time: 1]
 
   use Mix.Task
 
@@ -66,10 +66,12 @@ defmodule Mix.Tasks.Benchmark do
 
   def run_palindrome() do
     benchmarks = %{
-      "palindrome check using String.at/2" => &Utils.check_palindrome_with_string_at/1,
-      "palindrome check using binary_part/3" => &Utils.check_palindrome_with_binary_part/1,
-      "palindrome check using String.graphemes/1" => &Utils.check_palindrome_with_graphemes/1,
-      "palindrome check using String.reverse/1" => &Utils.check_palindrome_with_string_reverse/1
+      "check_palindrome_with_string_at" => &Utils.check_palindrome_with_string_at/1,
+      "check_palindrome_with_binary_part" => &Utils.check_palindrome_with_binary_part/1,
+      "check_palindrome_with_graphemes" => &Utils.check_palindrome_with_graphemes/1,
+      "check_palindrome_with_string_reverse" => &Utils.check_palindrome_with_string_reverse/1,
+      "check_palindrome_charlist" => &Utils.check_palindrome_charlist/1,
+      "check_palindrome_charlist_optimized" => &Utils.check_palindrome_charlist_optimized/1
     }
 
     Benchee.run(benchmarks, [inputs: palindrome_inputs()] ++ @benchee_opts)

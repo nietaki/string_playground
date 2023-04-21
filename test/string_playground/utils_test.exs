@@ -73,4 +73,22 @@ defmodule StringPlayground.UtilsTest do
       end
     end
   end
+
+  describe "check_palind check_palindrome_charlist_optimized" do
+    property "is correct for alphanumeric graphemes" do
+      check all(str <- string(:alphanumeric)) do
+        is_palindrome = str == String.reverse(str)
+        assert Utils.check_palindrome_charlist_optimized(str) == is_palindrome
+      end
+    end
+  end
+
+  describe "check_palind check_palindrome_charlist" do
+    property "is correct for alphanumeric graphemes" do
+      check all(str <- string(:alphanumeric)) do
+        is_palindrome = str == String.reverse(str)
+        assert Utils.check_palindrome_charlist(str) == is_palindrome
+      end
+    end
+  end
 end

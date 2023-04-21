@@ -15,7 +15,7 @@ defmodule StringPlayground.AdaptiveTest do
       ) do
         string_slice = String.slice(str, 0, length)
         binary_part_slice = binary_part(str, 0, min(length, byte_size(str)))
-        {actual_length, adaptive_slice} = Adaptive.slice_beginning(str, length)
+        {_actual_length, adaptive_slice} = Adaptive.slice_beginning(str, length)
 
         assert string_slice == binary_part_slice
         assert string_slice == adaptive_slice

@@ -41,6 +41,19 @@ defmodule StringPlayground.Utils do
     s == String.reverse(s)
   end
 
+  @spec check_palindrome_charlist(String.t()) :: boolean()
+  def check_palindrome_charlist(s) do
+    erlang_str = to_charlist(s)
+    :string.equal(erlang_str, :lists.reverse(erlang_str))
+  end
+
+  @spec check_palindrome_charlist_optimized(String.t()) :: boolean()
+  def check_palindrome_charlist_optimized(s) do
+    len = byte_size(s)
+    charlist = to_charlist(s)
+    compare_beginning(charlist, Enum.reverse(charlist), div(len, 2))
+  end
+
   def check_palindrome_with_graphemes(s) do
     graphemes = String.graphemes(s)
     reversed_graphemes = Enum.reverse(graphemes)
